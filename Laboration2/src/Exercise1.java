@@ -23,7 +23,7 @@ public class Exercise1 {
     }
     
     public static void main( String[] args ) {
-        ArrayList<Person> list = Exercise1.readPersons( "files/personer.txt" );
+        ArrayList<Person> list = Exercise1.readPersons("C:\\Users\\Dragon\\IdeaProjects\\Optod\\Laboration2\\personer.txt" );
         Person person1 = new Person( "761201-7654", "Henry", "Smith" );
         Person person2 = new Person( "011003-4444", "Alma", "Björk" );
         Person p;

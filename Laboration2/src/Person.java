@@ -2,8 +2,8 @@ public class Person {
     private String id;
     private String firstName;
     private String lastName;
-    
-    public Person( String id, String firstName, String lastName ) {
+
+    public Person(String id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,8 +32,12 @@ public class Person {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     public String toString() {
         return id + " " + firstName + " " + lastName;
-    }    
+    }
+
+    public boolean equals(Object obj) {
+        return (obj instanceof Person && id.equals(((Person) obj).getId())) ;
+    }
 }

@@ -1,7 +1,5 @@
 import java.util.LinkedList;
 
-import laboration1.QueueException;
-
 public class LinkedQueue<T> implements Queue<T> {
 	private LinkedList<T> queue = new LinkedList<T>();
 
@@ -18,4 +16,28 @@ public static void main(String[] args) {
 		}
 	}
 
+	@Override
+	public void add(T element) {
+
+	}
+
+	@Override
+	public T remove() {
+		return null;
+	}
+
+	@Override
+	public T element() {
+		return null;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
+	@Override
+	public int size() {
+		return 0;
+	}
 }
