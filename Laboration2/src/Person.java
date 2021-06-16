@@ -1,4 +1,4 @@
-public class Person {
+public class Person implements Comparable<Person> {
     private String id;
     private String firstName;
     private String lastName;
@@ -38,6 +38,11 @@ public class Person {
     }
 
     public boolean equals(Object obj) {
-        return (obj instanceof Person && id.equals(((Person) obj).getId())) ;
+        return (obj instanceof Person && id.equals(((Person) obj).getId()));
+    }
+
+    @Override
+    public int compareTo(Person p) {
+        return id.compareTo(p.getId());
     }
 }
