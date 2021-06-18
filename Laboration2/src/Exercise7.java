@@ -1,28 +1,30 @@
-import java.io.*;
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
 
 public class Exercise7 {
 
     private HashMap<String, String> dictonary = new HashMap<String, String>();
-    
+
     public Exercise7(String filename) {
-        readDictionary(filename,dictonary);
+        readDictionary(filename, dictonary);
     }
 
     public static void readDictionary(String filename, Map<String, String> map) {
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename),"ISO-8859-1"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "ISO-8859-1"));
             String[] parts;
-            String english, swedish;
+            String ska, swedish;
             String str = br.readLine();
             while (str != null) {
                 parts = str.split(",");
-                english = parts[2];
+                ska = parts[0];
                 swedish = parts[1];
-                map.put(english, swedish);
+                map.put(ska, swedish);
                 str = br.readLine();
             }
             br.close();
@@ -42,8 +44,16 @@ public class Exercise7 {
         }
         System.out.println("------------------------------------------------");
     }
-    
+
     public void translate() {
+        String ska, swe;
+        ska = JOptionPane.showInputDialog("Ange ett skånskt ord");
+        swe = dictonary.get(ska);
+        if (swe == null) {
+            JOptionPane.showMessageDialog(null, ska + " finns inte i ordlistan");
+        } else {
+            JOptionPane.showMessageDialog(null, ska + " = " + swe);
+        }
     }
 
     public static int menu(String[] options) {
@@ -69,7 +79,7 @@ public class Exercise7 {
     }
 
     public static void main(String[] args) {
-        Exercise7 ex7 = new Exercise7("files/SkSvEn.txt");
+        Exercise7 ex7 = new Exercise7("C:\\Users\\Dragon\\IdeaProjects\\Optod\\SkSvEn.txt");
         String[] menuOptions = {"Översätt ord", "Skriv ut ordlista"};
         int choice = Exercise7.menu(menuOptions);
         while (choice != 0) {

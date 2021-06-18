@@ -6,14 +6,14 @@ import java.io.*;
 public class Exercise6 {
 
     private HashMap<String, String> dictonary = new HashMap<String, String>();
-    
+
     public Exercise6(String filename) {
-        readDictionary(filename,dictonary);
+        readDictionary(filename, dictonary);
     }
 
     public static void readDictionary(String filename, Map<String, String> map) {
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename),"UTF-8")); //"ISO-8859-1"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8")); //"ISO-8859-1"));
             String[] parts;
             String english, swedish;
             String str = br.readLine();
@@ -41,8 +41,16 @@ public class Exercise6 {
         }
         System.out.println("------------------------------------------------");
     }
-    
+
     public void translate() {
+        String eng, swe;
+        eng = JOptionPane.showInputDialog("Ange ett engelskt ord");
+        swe = dictonary.get(eng);
+        if (swe == null) {
+            JOptionPane.showMessageDialog(null, eng + " finns inte i ordlistan");
+        } else {
+            JOptionPane.showMessageDialog(null, eng + " = " + swe);
+        }
     }
 
     public static int menu(String[] options) {
@@ -68,7 +76,7 @@ public class Exercise6 {
     }
 
     public static void main(String[] args) {
-        Exercise6 ex6 = new Exercise6("files/SkSvEn.txt");
+        Exercise6 ex6 = new Exercise6("C:\\Users\\Dragon\\IdeaProjects\\Optod\\SkSvEn.txt");
         String[] menuOptions = {"Översätt ord", "Skriv ut ordlista"};
         int choice = Exercise6.menu(menuOptions);
         while (choice != 0) {
