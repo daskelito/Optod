@@ -4,7 +4,7 @@ public class Exercise2a extends Thread {
     private int index = 0;
 
     public Exercise2a(String[] strings) {
-        this(strings, 300);
+        this(strings, 1000);
     }
 
     public Exercise2a(String[] strings, long pause) {
@@ -16,15 +16,15 @@ public class Exercise2a extends Thread {
     @Override
     public void run() {
 
-       while(index<strings.length){
-           System.out.println(strings[index]);
-           index++;
-           try {
-               Thread.sleep(pause);
-           } catch (InterruptedException e) {
-               e.printStackTrace();
-           }
-       }
+        while (index < strings.length) {
+            System.out.println(strings[index]);
+            index++;
+            try {
+                Thread.sleep(pause);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String[] args) {
