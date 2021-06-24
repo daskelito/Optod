@@ -44,9 +44,7 @@ public class ProductGenerator {
                 factor1 = rand.nextInt(product) + 1;
                 factor2 = rand.nextInt(product) + 1;
                 res = factor1 * factor2;
-                if (res == product && listener!=null) {
-                    listener.newProduct(factor1 + "*" + factor2 + "=" + product);
-                }
+
             }
             thread = null;
         }
