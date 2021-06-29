@@ -6,15 +6,17 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 
 public class TextfileProducer implements MessageProducer {
-    private int delay;
     private int times;
+    private int delay;
     private int size;
     private LinkedList<Message> messages = new LinkedList<Message>();
 
-    //first row in the text file is times
-    //second row is delay in ms
-    //third row is size, number of text-picture pairs
-    private TextfileProducer(String filename) {
+    //1st row in the text file is times
+    //2nd row is delay in ms
+    //3rd row is size, number of string-icon pairs
+    //4th row is a string (repeating every other)
+    //5th row is an icon (repeating every other)
+    public TextfileProducer(String filename) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {
             times = Integer.parseInt(br.readLine());
             delay = Integer.parseInt(br.readLine());
@@ -48,6 +50,7 @@ public class TextfileProducer implements MessageProducer {
 
     @Override
     public Message nextMessage() {
-        return null;
+        if (size == 0) return null;
+        return messages.removeFirst();
     }
 }
