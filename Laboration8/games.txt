@@ -1,0 +1,10 @@
+Chelsea,Manchester City
+Southampton,Manchester United
+Arsenal,Tottenham Hotspur
+West Ham United,Liverpool
+Swansea City,Stoke City
+Newcastle United,Everton
+Crystal Palace,West Bromwich Albion
+Aston Villa,Sunderland
+Burnley,Hull City
+Queens Park Rangers,Leicester City
