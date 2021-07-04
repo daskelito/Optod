@@ -3,13 +3,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.LinkedList;
 
-public class ObjectFileProducer implements MessageProducer{
+public class ObjectfileProducer implements MessageProducer{
     private int times;
     private int delay;
     private int size;
     private LinkedList<Message> messages = new LinkedList<Message>();
+    private int currentIndex = -1;
 
-    public ObjectFileProducer(String filename){
+    public ObjectfileProducer(String filename){
       try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))){
           times = ois.readInt();
           delay = ois.readInt();
@@ -17,10 +18,7 @@ public class ObjectFileProducer implements MessageProducer{
           for(int i = 0; i < size(); i++){
               messages.add((Message) ois.readObject());
           }
-      } catch (IOException | ClassNotFoundException e){
-
-      }
-
+      } catch (IOException | ClassNotFoundException e){}
     }
 
     @Override
@@ -40,7 +38,8 @@ public class ObjectFileProducer implements MessageProducer{
 
     @Override
     public Message nextMessage() {
-        if (size == 0) return null;
-        return messages.removeFirst();
+        if (this.size() == 0) return null;
+        currentIndex = (currentIndex + 1) % messages.size();
+        return messages.get(currentIndex);
     }
 }

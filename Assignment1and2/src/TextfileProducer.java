@@ -10,47 +10,68 @@ public class TextfileProducer implements MessageProducer {
     private int delay;
     private int size;
     private LinkedList<Message> messages = new LinkedList<Message>();
+    private int currentIndex = -1;
 
-    //1st row in the text file is times
-    //2nd row is delay in ms
-    //3rd row is size, number of string-icon pairs
-    //4th row is a string (repeating every other)
-    //5th row is an icon (repeating every other)
+    /**
+     * Creates an instance of the TextfileProducer-object. A filename/path is required as a paramter from which the
+     * object reads data using a FileInputStream, within an InputStreamReader, within a BufferedReader.
+     * Times, delay and size are read from the first 3 lines. Times is the amount to repeat the whole lines of messages,
+     * delay is the amount of time between each message and size is the amount of text/image-pairs in the file. A pair
+     * of one text and one image is added to a Message-object and then added to a list of messages within the object.
+     * @param filename
+     */
     public TextfileProducer(String filename) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {
             times = Integer.parseInt(br.readLine());
             delay = Integer.parseInt(br.readLine());
             size = Integer.parseInt(br.readLine());
-            for(int i = 0; i < size; i++){
-                String s  = br.readLine();
-                // Icon icon = TYPECAST ICON FROM STRING br.readLine();
-                Message m = new Message(s, icon);
+            for (int i = 0; i < size; i++) {
+                String s = br.readLine();
+                String iconFilePath = br.readLine();
+                iconFilePath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\" + iconFilePath;
+                Message m = new Message(s, new ImageIcon(iconFilePath));
                 messages.add(m);
             }
         } catch (IOException e) {
             System.err.println(e);
         }
-
     }
 
+    /**
+     * Delay is the amount of time between each message.
+     * @return the delay in miliseconds
+     */
     @Override
     public int delay() {
         return delay;
     }
 
+    /**
+     * Times is the amount to repeat the whole lines of messages
+     * @return
+     */
     @Override
     public int times() {
         return times;
     }
 
+    /**
+     * Size is the amount of text/image-pairs in the file.
+     * @return the size property of the object.
+     */
     @Override
     public int size() {
         return size;
     }
 
+    /**
+     * Uses an index to loop through the list of messages. Method is used to get the next message in the list.
+     * @return the next Message-object in the list of messages.
+     */
     @Override
     public Message nextMessage() {
-        if (size == 0) return null;
-        return messages.removeFirst();
+        if (this.size() == 0) return null;
+        currentIndex = (currentIndex + 1) % messages.size();
+        return messages.get(currentIndex);
     }
 }
