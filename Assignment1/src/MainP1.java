@@ -1,6 +1,7 @@
 import javax.swing.ImageIcon;
 
 public class MainP1 {
+
 	public static void main(String[] args) {
 		Buffer<Message> messageBuffer = new Buffer<Message>();
 		Buffer<MessageProducer> producerBuffer	= new Buffer<MessageProducer>();
@@ -17,7 +18,8 @@ public class MainP1 {
 		Producer producer = new Producer(producerBuffer, messageBuffer);
 		producer.start();
 
-		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+		//Edit filepath below to run!
+		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
 		MessageProducerInput ipManager = new MessageProducerInput(producerBuffer);
 		ipManager.addMessageProducer(getArrayProducer(10,100));
 		ipManager.addMessageProducer(new ShowGubbe(3000));
@@ -25,7 +27,8 @@ public class MainP1 {
 	}
 	
     private static ArrayProducer getArrayProducer(int times, int delay) {
-		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+		//Edit filepath below to run!
+		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
     	Message[] messages = { new Message("UP",new ImageIcon(filepath + "images/new1.jpg")),
 				new Message("Going down.",new ImageIcon(filepath + "images/new2.jpg")),
     			new Message("Going down..",new ImageIcon(filepath + "images/new3.jpg")),
@@ -41,7 +44,8 @@ public class MainP1 {
 }
 
 class ShowGubbe implements MessageProducer {
-	String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+	//Edit filepath below to run!
+	String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
 	private int delay;
 	
 	public ShowGubbe(int delay) {
