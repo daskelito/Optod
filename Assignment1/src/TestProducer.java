@@ -3,7 +3,7 @@ import javax.swing.ImageIcon;
 public class TestProducer {
 
     private static ArrayProducer getArrayProducer(int times, int delay) {
-        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
         Message[] messages = {new Message("UP", new ImageIcon(filepath + "images/new1.jpg")),
                 new Message("Going down.", new ImageIcon(filepath + "images/new2.jpg")),
                 new Message("Going down..", new ImageIcon(filepath + "images/new3.jpg")),
@@ -18,7 +18,7 @@ public class TestProducer {
     }
 
     public static void main(String[] args) {
-        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
         Viewer viewer = new Viewer(300, 200);
         Viewer.showPanelInFrame(viewer, "From Buffer<Message>", 100, 30);
         Buffer<MessageProducer> producerBuffer = new Buffer<MessageProducer>();

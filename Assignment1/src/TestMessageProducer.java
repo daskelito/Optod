@@ -10,7 +10,7 @@ import javax.swing.SwingUtilities;
 
 public class TestMessageProducer {
     private static ArrayProducer getArrayProducer(int times, int delay) {
-        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
         Message[] messages = {new Message("UP", new ImageIcon(filepath + "images/new1.jpg")),
                 new Message("Going down.", new ImageIcon(filepath + "images/new2.jpg")),
                 new Message("Going down..", new ImageIcon(filepath + "images/new3.jpg")),
@@ -43,7 +43,7 @@ public class TestMessageProducer {
     public static void main(String[] args) {
         Viewer viewer = new Viewer(300, 200);
         Viewer.showPanelInFrame(viewer, "From MessageProducer", 100, 50);
-        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\";
+        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
         //MessageProducer mp = getArrayProducer(2,100);
         //MessageProducer mp = new TextfileProducer(filepath + "new.txt");
         writeToObjectStream(filepath + "files/new.dat", getArrayProducer(4, 100));

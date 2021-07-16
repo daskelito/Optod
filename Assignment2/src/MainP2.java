@@ -1,7 +1,11 @@
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.io.IOException;
+import java.io.Serializable;
+
 
 public class MainP2 {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment2\\";
 		Buffer<Message> messageBuffer = new Buffer<Message>();
 		Buffer<MessageProducer> producerBuffer	= new Buffer<MessageProducer>();
 
@@ -33,13 +37,13 @@ public class MainP2 {
         MessageProducerServer mpServer = new MessageProducerServer(mpInput,3343);
         mpServer.startServer();
         MessageProducerClient mpClient1 = new MessageProducerClient("127.0.0.1",3343);
-        mpClient1.send(TestP2input.getArrayProducer(10,100));
+        mpClient1.send(TestP2Input.getArrayProducer(10,100));
         mpClient1.send(new ShowGubbe(5000));
-        mpClient1.send(new TextfileProducer("files/new.txt"));
+        mpClient1.send(new TextfileProducer(filepath + "files/new.txt"));
 	}
 }
 
-class ShowGubbe implements MessageProducer {
+class ShowGubbe implements MessageProducer, Serializable {
 	private int delay;
 
 	public ShowGubbe(int delay) {

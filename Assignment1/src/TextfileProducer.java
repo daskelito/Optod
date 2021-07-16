@@ -1,11 +1,8 @@
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.LinkedList;
 
-public class TextfileProducer implements MessageProducer {
+public class TextfileProducer implements MessageProducer, Serializable {
     private int times;
     private int delay;
     private int size;
@@ -28,7 +25,7 @@ public class TextfileProducer implements MessageProducer {
             for (int i = 0; i < size; i++) {
                 String s = br.readLine();
                 String iconFilePath = br.readLine();
-                iconFilePath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1and2\\" + iconFilePath;
+                iconFilePath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\" + iconFilePath;
                 Message m = new Message(s, new ImageIcon(iconFilePath));
                 messages.add(m);
             }

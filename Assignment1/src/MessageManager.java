@@ -15,6 +15,10 @@ public class MessageManager extends Thread {
         pcs.addPropertyChangeListener(listener);
     }
 
+    public Message getNextMessage() throws InterruptedException {
+        return messageBuffer.get();
+    }
+
     @Override
     public void run() {
         try {

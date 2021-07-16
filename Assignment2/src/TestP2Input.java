@@ -1,4 +1,5 @@
 import javax.swing.ImageIcon;
+import java.net.SocketException;
 
 public class TestP2Input {
 	public static void main(String[] args) {
@@ -28,16 +29,17 @@ public class TestP2Input {
 	}
 	
     public static ArrayProducer getArrayProducer(int times, int delay) {
-    	Message[] messages = { new Message("UP",new ImageIcon("images/new1.jpg")),
-    			new Message("Going down.",new ImageIcon("images/new2.jpg")),
-    			new Message("Going down..",new ImageIcon("images/new3.jpg")),
-    			new Message("Going down...",new ImageIcon("images/new4.jpg")),
-    			new Message("Going down....",new ImageIcon("images/new5.jpg")),
-    			new Message("Almost down",new ImageIcon("images/new6.jpg")),
-    			new Message("DOWN",new ImageIcon("images/new7.jpg")),
-    			new Message("Going up.",new ImageIcon("images/new8.jpg")),
-    			new Message("Going up..",new ImageIcon("images/new9.jpg")),
-    			new Message("Almost up",new ImageIcon("images/new10.jpg")) };
+		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
+    	Message[] messages = { new Message("UP",new ImageIcon(filepath + "images/new1.jpg")),
+    			new Message("Going down.",new ImageIcon(filepath + "images/new2.jpg")),
+    			new Message("Going down..",new ImageIcon(filepath + "images/new3.jpg")),
+    			new Message("Going down...",new ImageIcon(filepath + "images/new4.jpg")),
+    			new Message("Going down....",new ImageIcon(filepath + "images/new5.jpg")),
+    			new Message("Almost down",new ImageIcon(filepath + "images/new6.jpg")),
+    			new Message("DOWN",new ImageIcon(filepath + "images/new7.jpg")),
+    			new Message("Going up.",new ImageIcon(filepath + "images/new8.jpg")),
+    			new Message("Going up..",new ImageIcon(filepath + "images/new9.jpg")),
+    			new Message("Almost up",new ImageIcon(filepath + "images/new10.jpg")) };
         return new ArrayProducer(messages,times,delay);       
     }
 }

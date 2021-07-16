@@ -1,4 +1,6 @@
-public class ArrayProducer implements MessageProducer {
+import java.io.Serializable;
+
+public class ArrayProducer implements MessageProducer, Serializable {
 	private Message[] messages;
 	private int delay = 0;
 	private int times = 0;
