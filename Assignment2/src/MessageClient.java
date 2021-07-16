@@ -37,8 +37,6 @@ public class MessageClient extends Thread {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
 }

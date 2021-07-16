@@ -22,8 +22,8 @@ public class MessageServer implements Runnable {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Server running");
-                new ClientHandler(clientSocket).start();
+                System.out.println("Client initiated from server");
+                new ClientHandler(messageManager, clientSocket).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -33,16 +33,18 @@ public class MessageServer implements Runnable {
     private class ClientHandler extends Thread {
         private Socket clientSocket;
         ObjectOutputStream oos;
+        MessageManager innerMessageManager;
 
-        public ClientHandler(Socket socket) {
+        public ClientHandler(MessageManager innerMessageManager, Socket socket) {
             this.clientSocket = socket;
+            this.innerMessageManager = innerMessageManager;
         }
 
         public void run() {
             try {
                 oos = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
                 while (true) {
-                    message = messageManager.getNextMessage();
+                    message = innerMessageManager.getNextMessage();
                     oos.writeObject(message);
                     oos.flush();
                 }

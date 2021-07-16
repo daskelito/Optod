@@ -32,7 +32,7 @@ public class MainP2 {
 		producer.start();
 
         MessageProducerInput mpInput = new MessageProducerInput(producerBuffer);
-//        mpInput.addMessageProducer(new TextfileProducer("files/new.txt"));
+//        mpInput.addMessageProducer(new TextfileProducer(filepath + "files/new.txt"));
 
         MessageProducerServer mpServer = new MessageProducerServer(mpInput,3343);
         mpServer.startServer();
@@ -67,6 +67,6 @@ class ShowGubbe implements MessageProducer, Serializable {
 
 	@Override
 	public Message nextMessage() {
-		return new Message("Hi folks...",new ImageIcon("images/gubbe.jpg"));
+		return new Message("Hi folks...",new ImageIcon("C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment2\\images/gubbe.jpg"));
 	}
 }
