@@ -4,7 +4,7 @@ public class MainP1 {
 
 	public static void main(String[] args) {
 		Buffer<Message> messageBuffer = new Buffer<Message>();
-		Buffer<MessageProducer> producerBuffer	= new Buffer<MessageProducer>();
+		Buffer<MessageProducer> producerBuffer= new Buffer<MessageProducer>();
 
 		MessageManager messageManager = new MessageManager(messageBuffer);
 		P1Viewer v1 = new P1Viewer(messageManager, 300, 200);
