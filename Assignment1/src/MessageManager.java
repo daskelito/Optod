@@ -1,5 +1,6 @@
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.Observable;
 
 public class MessageManager extends Thread {

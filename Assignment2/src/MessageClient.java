@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 
-public class MessageClient implements Runnable {
+public class MessageClient {
     private int port;
     private String host;
     private ObjectInputStream ois;
@@ -14,8 +14,7 @@ public class MessageClient implements Runnable {
     public MessageClient(String host, int port) {
         this.host = host;
         this.port = port;
-        Thread clientThread = new Thread(this);
-        clientThread.start();
+        new Connection().start();
     }
 
     public void registerObserver(EventObserver eventObserver) {
@@ -26,18 +25,21 @@ public class MessageClient implements Runnable {
         for (EventObserver eventObserver : observers) eventObserver.onEvent(message);
     }
 
-    @Override
-    public void run() {
-        try (Socket socket = new Socket(host, port)) {
-            ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-            System.out.println(Thread.currentThread().getName() + ": Client connected");
-            while (true) {
-                Message message = (Message) ois.readObject();
-                alertObservers(message);
+    private class Connection extends Thread {
+        @Override
+        public void run() {
+            try (Socket socket = new Socket(host, port)) {
+                ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+                System.out.println(Thread.currentThread().getName() + ": Client connected");
+                while (true) {
+                    Message message = (Message) ois.readObject();
+                    alertObservers(message);
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
+
     }
 
 }

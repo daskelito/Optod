@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class MessageServer implements Runnable {
+public class MessageServer {
     private MessageManager messageManager;
     private Message message;
     private ServerSocket serverSocket;
@@ -15,45 +15,61 @@ public class MessageServer implements Runnable {
         this.messageManager = messageManager;
         serverSocket = new ServerSocket(port);
         chList = new ArrayList<ClientHandler>();
-        Thread serverthread = new Thread(this);
-        serverthread.start();
+        new Connection(port).start();
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            try {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println(Thread.currentThread().getName() + ": Client connection initiated from server...");
-                ClientHandler ch = new ClientHandler(messageManager, clientSocket);
-                ch.start();
+
+    private class Connection extends Thread {
+        private int port;
+
+        public Connection(int port) {
+            this.port = port;
+        }
+
+        public void run() {
+            try (ServerSocket serverSocket = new ServerSocket(port)) {
+                while (!Thread.interrupted()) {
+                    Socket socket = serverSocket.accept();
+                    new ClientHandler(messageManager, socket);
+                    System.out.println("Clienthandler created");
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println(e);
             }
         }
     }
 
     private class ClientHandler extends Thread {
         private Socket clientSocket;
-        ObjectOutputStream oos;
-        MessageManager innerMessageManager;
+        private ObjectOutputStream oos;
+        private MessageManager innerMessageManager;
 
         public ClientHandler(MessageManager innerMessageManager, Socket socket) {
             this.clientSocket = socket;
             this.innerMessageManager = innerMessageManager;
-        }
-
-        public void run() {
+            chList.add(this);
             try {
                 oos = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
-                while (true) {
-                    message = innerMessageManager.getNextMessage();
-                    oos.writeObject(message);
-                    oos.flush();
-                }
-            } catch (IOException | InterruptedException e) {
+                start();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        public void run() {
+            while (true) {
+                try {
+                    message = innerMessageManager.getNextMessage();
+                    oos.writeObject(message);
+                    oos.flush();
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
     }
+
 }
+
