@@ -2,6 +2,13 @@ import javax.swing.*;
 import java.io.*;
 import java.util.LinkedList;
 
+/**
+ * TextfileProducer is a class that procudes Messages based on text files.
+ *
+ * @author Henrik Heinze
+ * @version 1.0
+ */
+
 public class TextfileProducer implements MessageProducer, Serializable {
     private int times;
     private int delay;
@@ -15,7 +22,7 @@ public class TextfileProducer implements MessageProducer, Serializable {
      * Times, delay and size are read from the first 3 lines. Times is the amount to repeat the whole lines of messages,
      * delay is the amount of time between each message and size is the amount of text/image-pairs in the file. A pair
      * of one text and one image is added to a Message-object and then added to a list of messages within the object.
-     * @param filename
+     * @param filename the specified filename
      */
     public TextfileProducer(String filename) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"))) {
@@ -25,7 +32,6 @@ public class TextfileProducer implements MessageProducer, Serializable {
             for (int i = 0; i < size; i++) {
                 String s = br.readLine();
                 String iconFilePath = br.readLine();
-                iconFilePath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\" + iconFilePath;
                 Message m = new Message(s, new ImageIcon(iconFilePath));
                 messages.add(m);
             }
@@ -36,7 +42,7 @@ public class TextfileProducer implements MessageProducer, Serializable {
 
     /**
      * Delay is the amount of time between each message.
-     * @return the delay in miliseconds
+     * @return the delay in milliseconds
      */
     @Override
     public int delay() {
@@ -45,7 +51,7 @@ public class TextfileProducer implements MessageProducer, Serializable {
 
     /**
      * Times is the amount to repeat the whole lines of messages
-     * @return
+     * @return the number of times
      */
     @Override
     public int times() {

@@ -1,14 +1,21 @@
+/**
+ * Producer is a class whose job is to take
+ * messages from the MessageProducers and unpack them into a message buffer.
+ *
+ * @author Henrik Heinze
+ * @version 1.0
+ */
+
 public class Producer extends Thread {
     private Buffer<MessageProducer> prodBuffer;
     private Buffer<Message> messageBuffer;
 
     /**
      * Creates producer that uses one thread and requires two instances of the Buffer class. One Buffer consists of
-     * MessageProducers of various kinds and the other Buffer is a message buffer. The producers job is to take
-     * messages from the MessageProducers and unpack them into the message buffer.
+     * MessageProducers of various kinds and the other Buffer is a message buffer.
      *
-     * @param prodBuffer
-     * @param messageBuffer
+     * @param prodBuffer instance of Buffer cootaining MessageProducer
+     * @param messageBuffer instance of Buffer containing Messages
      */
     public Producer(Buffer<MessageProducer> prodBuffer, Buffer<Message> messageBuffer) {
         this.prodBuffer = prodBuffer;

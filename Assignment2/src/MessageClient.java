@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 
-public class MessageClient extends Thread {
+public class MessageClient implements Runnable {
     private int port;
     private String host;
     private ObjectInputStream ois;
@@ -14,7 +14,8 @@ public class MessageClient extends Thread {
     public MessageClient(String host, int port) {
         this.host = host;
         this.port = port;
-        start();
+        Thread clientThread = new Thread(this);
+        clientThread.start();
     }
 
     public void registerObserver(EventObserver eventObserver) {
@@ -29,8 +30,8 @@ public class MessageClient extends Thread {
     public void run() {
         try (Socket socket = new Socket(host, port)) {
             ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-            System.out.println("Client connected");
-            while(true){
+            System.out.println(Thread.currentThread().getName() + ": Client connected");
+            while (true) {
                 Message message = (Message) ois.readObject();
                 alertObservers(message);
             }

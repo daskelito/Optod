@@ -16,12 +16,13 @@ public class MainP2 {
 		Viewer.showPanelInFrame(v2, "Viewer 2", 450, 50);
 
 		MessageServer messageServer = new MessageServer(messageManager, 2343); // start av server
-		MessageClient messageClient1 = new MessageClient("127.0.0.1", 2343); // start av client1
 
+		MessageClient messageClient1 = new MessageClient("127.0.0.1", 2343); // start av client1
 		P2Viewer v3 = new P2Viewer(messageClient1, 300, 200);
 		P2Viewer v4 = new P2Viewer(messageClient1, 320, 320);
 		Viewer.showPanelInFrame(v3, "Viewer 3", 100, 400);
 		Viewer.showPanelInFrame(v4, "Viewer 4", 450, 400);
+
 		MessageClient messageClient2 = new MessageClient("127.0.0.1", 2343); // start av client2
 		P2Viewer v5 = new P2Viewer(messageClient2, 250, 320);
 		Viewer.showPanelInFrame(v5, "Viewer 5", 800, 400);
@@ -67,6 +68,7 @@ class ShowGubbe implements MessageProducer, Serializable {
 
 	@Override
 	public Message nextMessage() {
-		return new Message("Hi folks...",new ImageIcon("C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment2\\images/gubbe.jpg"));
+		return new Message("Hi folks...",new ImageIcon("images/gubbe.jpg"));
+//		return new Message("Hi folks...",new ImageIcon("C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment2\\images/gubbe.jpg"));
 	}
 }

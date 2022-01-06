@@ -18,34 +18,28 @@ public class MainP1 {
 		Producer producer = new Producer(producerBuffer, messageBuffer);
 		producer.start();
 
-		//Edit filepath below to run!
-		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
 		MessageProducerInput ipManager = new MessageProducerInput(producerBuffer);
 		ipManager.addMessageProducer(getArrayProducer(10,100));
 		ipManager.addMessageProducer(new ShowGubbe(3000));
-		ipManager.addMessageProducer(new TextfileProducer(filepath + "files/new.txt"));
+		ipManager.addMessageProducer(new TextfileProducer("Assignment1/files/new.txt"));
 	}
 	
     private static ArrayProducer getArrayProducer(int times, int delay) {
-		//Edit filepath below to run!
-		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
-    	Message[] messages = { new Message("UP",new ImageIcon(filepath + "images/new1.jpg")),
-				new Message("Going down.",new ImageIcon(filepath + "images/new2.jpg")),
-    			new Message("Going down..",new ImageIcon(filepath + "images/new3.jpg")),
-    			new Message("Going down...",new ImageIcon(filepath + "images/new4.jpg")),
-    			new Message("Going down....",new ImageIcon(filepath + "images/new5.jpg")),
-    			new Message("Almost down",new ImageIcon(filepath + "images/new6.jpg")),
-    			new Message("DOWN",new ImageIcon(filepath + "images/new7.jpg")),
-    			new Message("Going up.",new ImageIcon(filepath + "images/new8.jpg")),
-    			new Message("Going up..",new ImageIcon(filepath + "images/new9.jpg")),
-    			new Message("Almost up",new ImageIcon(filepath + "images/new10.jpg")) };
+    	Message[] messages = { new Message("UP",new ImageIcon("Assignment1/images/new1.jpg")),
+				new Message("Going down.",new ImageIcon("Assignment1/images/new2.jpg")),
+    			new Message("Going down..",new ImageIcon("Assignment1/images/new3.jpg")),
+    			new Message("Going down...",new ImageIcon("Assignment1/images/new4.jpg")),
+    			new Message("Going down....",new ImageIcon("Assignment1/images/new5.jpg")),
+    			new Message("Almost down",new ImageIcon("Assignment1/images/new6.jpg")),
+    			new Message("DOWN",new ImageIcon("Assignment1/images/new7.jpg")),
+    			new Message("Going up.",new ImageIcon("Assignment1/images/new8.jpg")),
+    			new Message("Going up..",new ImageIcon("Assignment1/images/new9.jpg")),
+    			new Message("Almost up",new ImageIcon("Assignment1/images/new10.jpg")) };
         return new ArrayProducer(messages,times,delay);       
     }
 }
 
 class ShowGubbe implements MessageProducer {
-	//Edit filepath below to run!
-	String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
 	private int delay;
 	
 	public ShowGubbe(int delay) {
@@ -69,7 +63,7 @@ class ShowGubbe implements MessageProducer {
 
 	@Override
 	public Message nextMessage() {
-		return new Message("Hi folks...",new ImageIcon(filepath + "images/gubbe.jpg"));
+		return new Message("Hi folks...",new ImageIcon("Assignment1/images/gubbe.jpg"));
 	}
 	
 }

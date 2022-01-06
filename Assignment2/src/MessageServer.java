@@ -3,16 +3,18 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class MessageServer implements Runnable {
     private MessageManager messageManager;
     private Message message;
     private ServerSocket serverSocket;
-
+    private ArrayList<ClientHandler> chList;
 
     public MessageServer(MessageManager messageManager, int port) throws IOException {
         this.messageManager = messageManager;
         serverSocket = new ServerSocket(port);
+        chList = new ArrayList<ClientHandler>();
         Thread serverthread = new Thread(this);
         serverthread.start();
     }
@@ -22,8 +24,9 @@ public class MessageServer implements Runnable {
         while (true) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client initiated from server");
-                new ClientHandler(messageManager, clientSocket).start();
+                System.out.println(Thread.currentThread().getName() + ": Client connection initiated from server...");
+                ClientHandler ch = new ClientHandler(messageManager, clientSocket);
+                ch.start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -53,5 +56,4 @@ public class MessageServer implements Runnable {
             }
         }
     }
-
 }

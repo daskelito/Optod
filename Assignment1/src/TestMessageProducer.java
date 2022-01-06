@@ -10,17 +10,16 @@ import javax.swing.SwingUtilities;
 
 public class TestMessageProducer {
     private static ArrayProducer getArrayProducer(int times, int delay) {
-        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
-        Message[] messages = {new Message("UP", new ImageIcon(filepath + "images/new1.jpg")),
-                new Message("Going down.", new ImageIcon(filepath + "images/new2.jpg")),
-                new Message("Going down..", new ImageIcon(filepath + "images/new3.jpg")),
-                new Message("Going down...", new ImageIcon(filepath + "images/new4.jpg")),
-                new Message("Going down....", new ImageIcon(filepath + "images/new5.jpg")),
-                new Message("Almost down", new ImageIcon(filepath + "images/new6.jpg")),
-                new Message("DOWN", new ImageIcon(filepath + "images/new7.jpg")),
-                new Message("Going up.", new ImageIcon(filepath + "images/new8.jpg")),
-                new Message("Going up..", new ImageIcon(filepath + "images/new9.jpg")),
-                new Message("Almost up", new ImageIcon(filepath + "images/new10.jpg"))};
+        Message[] messages = {new Message("UP", new ImageIcon("Assignment1/images/new1.jpg")),
+                new Message("Going down.", new ImageIcon("Assignment1/images/new2.jpg")),
+                new Message("Going down..", new ImageIcon("Assignment1/images/new3.jpg")),
+                new Message("Going down...", new ImageIcon("Assignment1/images/new4.jpg")),
+                new Message("Going down....", new ImageIcon("Assignment1/images/new5.jpg")),
+                new Message("Almost down", new ImageIcon("Assignment1/images/new6.jpg")),
+                new Message("DOWN", new ImageIcon("Assignment1/images/new7.jpg")),
+                new Message("Going up.", new ImageIcon("Assignment1/images/new8.jpg")),
+                new Message("Going up..", new ImageIcon("Assignment1/images/new9.jpg")),
+                new Message("Almost up", new ImageIcon("Assignment1/images/new10.jpg"))};
         return new ArrayProducer(messages, times, delay);
     }
 
@@ -43,11 +42,10 @@ public class TestMessageProducer {
     public static void main(String[] args) {
         Viewer viewer = new Viewer(300, 200);
         Viewer.showPanelInFrame(viewer, "From MessageProducer", 100, 50);
-        String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
-        //MessageProducer mp = getArrayProducer(2,100);
-        //MessageProducer mp = new TextfileProducer(filepath + "new.txt");
-        writeToObjectStream(filepath + "files/new.dat", getArrayProducer(4, 100));
-        MessageProducer mp = new ObjectfileProducer(filepath + "files/new.dat");
+
+        writeToObjectStream("Assignment1/files/new.dat", getArrayProducer(4, 100));
+        MessageProducer mp = new ObjectfileProducer("Assignment1/files/new.dat");
+
         Message message;
         int times = mp.times();
         int delay = mp.delay();
