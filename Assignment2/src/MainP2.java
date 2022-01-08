@@ -5,11 +5,8 @@ import java.io.Serializable;
 
 public class MainP2 {
     public static void main(String[] args) throws IOException {
-        int port1 = 6060;
-        int port2 = 8080;
-
         Buffer<Message> messageBuffer = new Buffer<Message>();
-        Buffer<MessageProducer> producerBuffer = new Buffer<MessageProducer>();
+        Buffer<MessageProducer> producerBuffer    = new Buffer<MessageProducer>();
 
         MessageManager messageManager = new MessageManager(messageBuffer);
         P1Viewer v1 = new P1Viewer(messageManager, 300, 200);
@@ -17,30 +14,29 @@ public class MainP2 {
         Viewer.showPanelInFrame(v1, "Viewer 1", 100, 50);
         Viewer.showPanelInFrame(v2, "Viewer 2", 450, 50);
 
-        MessageServer messageServer = new MessageServer(messageManager, port1); // start av server
+        MessageServer messageServer = new MessageServer(messageManager, 2343); // start av server
+        MessageClient messageClient1 = new MessageClient("127.0.0.1", 2343); // start av client1
 
-        MessageClient messageClient1 = new MessageClient("127.0.0.1", port1); // start av client1
         P2Viewer v3 = new P2Viewer(messageClient1, 300, 200);
         P2Viewer v4 = new P2Viewer(messageClient1, 320, 320);
         Viewer.showPanelInFrame(v3, "Viewer 3", 100, 400);
         Viewer.showPanelInFrame(v4, "Viewer 4", 450, 400);
-
-        MessageClient messageClient2 = new MessageClient("127.0.0.1", port1); // start av client2
+        MessageClient messageClient2 = new MessageClient("127.0.0.1", 2343); // start av client2
         P2Viewer v5 = new P2Viewer(messageClient2, 250, 320);
         Viewer.showPanelInFrame(v5, "Viewer 5", 800, 400);
 
         messageManager.start();
 
-        Producer producer = new Producer(producerBuffer, messageBuffer);
+        Producer producer = new Producer(producerBuffer,messageBuffer);
         producer.start();
 
         MessageProducerInput mpInput = new MessageProducerInput(producerBuffer);
         mpInput.addMessageProducer(new TextfileProducer("Assignment2/files/new.txt"));
 
-        MessageProducerServer mpServer = new MessageProducerServer(mpInput, port2);
+        MessageProducerServer mpServer = new MessageProducerServer(mpInput,3343);
         mpServer.startServer();
-        MessageProducerClient mpClient1 = new MessageProducerClient("127.0.0.1", port2);
-        mpClient1.send(TestP2Input.getArrayProducer(10, 100));
+        MessageProducerClient mpClient1 = new MessageProducerClient("127.0.0.1",3343);
+        mpClient1.send(TestP2Input.getArrayProducer(10,100));
         mpClient1.send(new ShowGubbe(5000));
         mpClient1.send(new TextfileProducer("Assignment2/files/new.txt"));
     }

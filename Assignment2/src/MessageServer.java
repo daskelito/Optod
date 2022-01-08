@@ -1,26 +1,27 @@
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class MessageServer {
     private MessageManager messageManager;
     private Message message;
     private ServerSocket serverSocket;
-    private ArrayList<ClientHandler> chList;
+//    private ArrayList<ClientHandler> chList;
 
     public MessageServer(MessageManager messageManager, int port) throws IOException {
         this.messageManager = messageManager;
-        serverSocket = new ServerSocket(port);
-        chList = new ArrayList<ClientHandler>();
+//        chList = new ArrayList<ClientHandler>();
         new Connection(port).start();
     }
 
 
     private class Connection extends Thread {
         private int port;
+        private int numofclients = 1;
 
         public Connection(int port) {
             this.port = port;
@@ -30,8 +31,9 @@ public class MessageServer {
             try (ServerSocket serverSocket = new ServerSocket(port)) {
                 while (!Thread.interrupted()) {
                     Socket socket = serverSocket.accept();
-                    new ClientHandler(messageManager, socket);
-                    System.out.println("Clienthandler created");
+                    new ClientHandler(socket).start();
+//                    System.out.println("Clienthandler created (" + numofclients + ")");
+                    numofclients++;
                 }
             } catch (IOException e) {
                 System.err.println(e);
@@ -40,33 +42,41 @@ public class MessageServer {
     }
 
     private class ClientHandler extends Thread {
-        private Socket clientSocket;
+        private Socket socket;
         private ObjectOutputStream oos;
-        private MessageManager innerMessageManager;
+        private Buffer<Message> buffer;
 
-        public ClientHandler(MessageManager innerMessageManager, Socket socket) {
-            this.clientSocket = socket;
-            this.innerMessageManager = innerMessageManager;
-            chList.add(this);
+
+        public ClientHandler(Socket socket) {
+            buffer = new Buffer<Message>();
+            this.socket = socket;
+            messageManager.addPropertyChangeListener(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    buffer.put((Message) evt.getNewValue());
+                }
+            });
+
+//            chList.add(this);
             try {
-                oos = new ObjectOutputStream(new BufferedOutputStream(clientSocket.getOutputStream()));
-                start();
+                oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         public void run() {
-            while (true) {
-                try {
-                    message = innerMessageManager.getNextMessage();
+            try {
+                while (!Thread.interrupted()) {
+                    message = buffer.get();
                     oos.writeObject(message);
                     oos.flush();
-                } catch (IOException | InterruptedException e) {
-                    e.printStackTrace();
                 }
-
+            } catch (IOException | InterruptedException e) {
+                System.err.println(e);
             }
+
+
         }
 
     }

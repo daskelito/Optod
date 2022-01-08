@@ -31,7 +31,7 @@ public class MessageClient {
             try (Socket socket = new Socket(host, port)) {
                 ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
                 System.out.println(Thread.currentThread().getName() + ": Client connected");
-                while (true) {
+                while (!Thread.interrupted()) {
                     Message message = (Message) ois.readObject();
                     alertObservers(message);
                 }

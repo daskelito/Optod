@@ -29,17 +29,16 @@ public class TestP2Input {
 	}
 	
     public static ArrayProducer getArrayProducer(int times, int delay) {
-		String filepath = "C:\\Users\\Dragon\\IdeaProjects\\Optod\\Assignment1\\";
-    	Message[] messages = { new Message("UP",new ImageIcon(filepath + "images/new1.jpg")),
-    			new Message("Going down.",new ImageIcon(filepath + "images/new2.jpg")),
-    			new Message("Going down..",new ImageIcon(filepath + "images/new3.jpg")),
-    			new Message("Going down...",new ImageIcon(filepath + "images/new4.jpg")),
-    			new Message("Going down....",new ImageIcon(filepath + "images/new5.jpg")),
-    			new Message("Almost down",new ImageIcon(filepath + "images/new6.jpg")),
-    			new Message("DOWN",new ImageIcon(filepath + "images/new7.jpg")),
-    			new Message("Going up.",new ImageIcon(filepath + "images/new8.jpg")),
-    			new Message("Going up..",new ImageIcon(filepath + "images/new9.jpg")),
-    			new Message("Almost up",new ImageIcon(filepath + "images/new10.jpg")) };
+    	Message[] messages = { new Message("UP",new ImageIcon("Assignment2/images/new1.jpg")),
+    			new Message("Going down.",new ImageIcon("Assignment2/images/new2.jpg")),
+    			new Message("Going down..",new ImageIcon("Assignment2/images/new3.jpg")),
+    			new Message("Going down...",new ImageIcon("Assignment2/images/new4.jpg")),
+    			new Message("Going down....",new ImageIcon("Assignment2/images/new5.jpg")),
+    			new Message("Almost down",new ImageIcon("Assignment2/images/new6.jpg")),
+    			new Message("DOWN",new ImageIcon("Assignment2/images/new7.jpg")),
+    			new Message("Going up.",new ImageIcon("Assignment2/images/new8.jpg")),
+    			new Message("Going up..",new ImageIcon("Assignment2/images/new9.jpg")),
+    			new Message("Almost up",new ImageIcon("Assignment2/images/new10.jpg")) };
         return new ArrayProducer(messages,times,delay);       
     }
 }
