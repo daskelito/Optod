@@ -10,11 +10,10 @@ public class MessageServer {
     private MessageManager messageManager;
     private Message message;
     private ServerSocket serverSocket;
-//    private ArrayList<ClientHandler> chList;
+
 
     public MessageServer(MessageManager messageManager, int port) throws IOException {
         this.messageManager = messageManager;
-//        chList = new ArrayList<ClientHandler>();
         new Connection(port).start();
     }
 
@@ -32,7 +31,6 @@ public class MessageServer {
                 while (!Thread.interrupted()) {
                     Socket socket = serverSocket.accept();
                     new ClientHandler(socket).start();
-//                    System.out.println("Clienthandler created (" + numofclients + ")");
                     numofclients++;
                 }
             } catch (IOException e) {
@@ -57,7 +55,6 @@ public class MessageServer {
                 }
             });
 
-//            chList.add(this);
             try {
                 oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             } catch (IOException e) {
