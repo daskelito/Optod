@@ -5,12 +5,26 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 
+/**
+ * MessageClient contains logic for the client side of the corresponding MessageServer.
+ *
+ * @author Henrik Heinze
+ * @version 1.0
+ */
 public class MessageClient {
     private int port;
     private String host;
     private ObjectInputStream ois;
     private LinkedList<EventObserver> observers = new LinkedList<EventObserver>();
 
+
+    /**
+     * Constructor of the client that requires a host ip and a port on where to operate.
+     * Initiates a new Connection upon creation.
+     *
+     * @param host
+     * @param port
+     */
     public MessageClient(String host, int port) {
         this.host = host;
         this.port = port;
